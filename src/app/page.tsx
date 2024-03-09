@@ -1,8 +1,22 @@
-export default function Home() {
+import axios from "axios";
+
+async function getUserDetails() {
+  const response = await axios.get("http://localhost:3000/api/user");
+  return response.data;
+}
+
+export default async function Home() {
+  const userData = await getUserDetails();
+
   return (
-    <div>
-      <h1>Hi, I am a full stack developer from India</h1>
-      <p>i love coding and stuff</p>
+    <div className="flex flex-col justify-center h-screen">
+      <div className="flex justify-center">
+        <div className="border p-8 rounded">
+          <div>Email: {userData?.email}</div>
+
+          {userData?.password}
+        </div>
+      </div>
     </div>
   );
 }
